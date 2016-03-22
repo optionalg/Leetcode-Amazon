@@ -1,22 +1,18 @@
 class Solution {
 public:
     vector<int> twoSum(vector<int>& numbers, int target) {
-        const size_t n = numbers.size();
+        int left = 0, right = numbers.size() - 1;
         vector<int> res;
-        int left, right, mid, sum;
-        for(int i = 0; i < n; ++i){
-            left = i + 1, right = n - 1;
-            while(left <= right){
-                mid = (left + right) / 2;
-                sum = numbers[i] + numbers[mid];
-                if(sum == target){
-                    res.push_back(i + 1);
-                    res.push_back(mid + 1);
-                    return res;
-                }else if(sum < target)
-                    left = mid + 1;
-                else right = mid - 1;
-            }
+        while(left < right){
+            long long val = numbers[left] + numbers[right];
+            if(val == target){
+                res.push_back(left + 1);
+                res.push_back(right + 1);
+                break;
+            }else if(val < target)
+                left++;
+            else
+                right--;
         }
         return res;
     }
