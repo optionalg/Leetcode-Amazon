@@ -9,8 +9,10 @@ vector<Point> getKNearestPoint(vector<Point> &points, int k){
 	for(int i = 0; i < points.size(); ++i){
 		if(pq.size() < k)
 			pq.push(points[i]);
-		else if(pq.top().dist2() > points[i].dist2())
+		else if(pq.top().dist2() > points[i].dist2()){
 			pq.pop();
+			pq.push(points[i]);
+		}
 	}
 	vector<Point> res;
 	while(!pq.empty()) res.push_back(pq.top()), pq.pop();
