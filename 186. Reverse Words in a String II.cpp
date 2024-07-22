@@ -1,18 +1,27 @@
 class Solution {
 public:
-    void reverse(int begin, int end, string &s){
-        while(begin < end)
-            swap(s[begin++], s[end--]);
-    }
-    void reverseWords(string &s) {
-        const size_t n = s.length();
-        reverse(0, n - 1, s);
-        int i, j;
-        for(i = 0, j = 0; j <= n; ++j){
-            if(j == n || s[j] == ' '){
-                reverse(i, j - 1, s);
-                i = j + 1;
+    void reverseWords(vector<char>& s) {
+        // Step 1: Reverse the entire character array
+        reverse(s.begin(), s.end());
+
+        // Step 2: Reverse each word in the reversed array
+        int start = 0;
+        for (int i = 0; i < s.size(); ++i) {
+            if (s[i] == ' ') {
+                reverse(s.begin() + start, s.begin() + i);
+                start = i + 1;
             }
+        }
+
+        // Reverse the last word
+        reverse(s.begin() + start, s.end());
+    }
+
+    void reverse(vector<char>& s, int i, int j) {
+        while (i < j) {
+            swap(s[i], s[j]);
+            i++;
+            j--;
         }
     }
 };
